@@ -1,0 +1,16 @@
+# prompt that includes previous exit code
+export PROMPT_COMMAND=_prompt
+function _prompt() {
+  export _EXITCODE="$?"
+  RED="$(tput setaf 1)"
+  GRE="$(tput setaf 2)"
+
+  if [ $_EXITCODE != 0 ];
+  then
+    export _PROMPT_EXITCODE_COLOR=$RED
+  else
+    export _PROMPT_EXITCODE_COLOR=$GRE
+  fi
+}
+export PS1="\u \D{%FT%T%Z} \w \001\$_PROMPT_EXITCODE_COLOR\002[\$_EXITCODE]\001$(tput sgr0)\002 $ "
+

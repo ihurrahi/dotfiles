@@ -1,0 +1,31 @@
+# show where a function is defined
+function whereisfunc() {
+  # Turn on extended shell debugging
+  shopt -s extdebug
+  # Dump the function's name, line number and fully qualified source file
+  declare -F $1
+  # Turn off extended shell debugging
+  shopt -u extdebug
+}
+
+# file copy
+function fcp() {
+  cat $1 | pbcopy
+}
+
+# make a sound when a command finishes
+function boop() {
+  exitcode="$?"
+  if [ $exitcode == 0 ];
+  then
+    afplay /System/Library/Sounds/Ping.aiff
+  else
+    afplay /System/Library/Sounds/Pop.aiff
+  fi
+  return $exitcode
+}
+
+# pretty print json
+function ppjson() {
+  echo "$1" | python3 -m json.tool
+}
